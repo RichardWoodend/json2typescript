@@ -423,7 +423,7 @@ var JsonConvert = (function () {
         }
         // Map the property
         try {
-            instance[classPropertyName] = customConverter !== null ? customConverter.deserialize(jsonValue) : this.verifyProperty(expectedJsonType, jsonValue);
+            instance[classPropertyName] = customConverter !== null ? customConverter.deserialize(jsonValue) : this.verifyProperty(expectedJsonType, jsonValue, false);
         }
         catch (e) {
             throw new Error("Fatal error in JsonConvert. " +
@@ -533,7 +533,7 @@ var JsonConvert = (function () {
             for (var i = 0; i < value.length; i++) {
                 if (autofillType && i >= expectedJsonType.length)
                     expectedJsonType[i] = expectedJsonType[i - 1];
-                array[i] = this.verifyProperty(expectedJsonType[i], value[i]);
+                array[i] = this.verifyProperty(expectedJsonType[i], value[i], serialize);
             }
             return array;
         }
@@ -554,7 +554,7 @@ var JsonConvert = (function () {
             for (var key in value) {
                 if (autofillType && i >= expectedJsonType.length)
                     expectedJsonType[i] = expectedJsonType[i - 1];
-                array[key] = this.verifyProperty(expectedJsonType[i], value[key]);
+                array[key] = this.verifyProperty(expectedJsonType[i], value[key], serialize);
                 i++;
             }
             return array;

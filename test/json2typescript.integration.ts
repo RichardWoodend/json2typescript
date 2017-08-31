@@ -43,13 +43,13 @@ describe('Integration tests', () => {
         @JsonConverter
         class DateConverter implements JsonCustomConvert<Date> {
             serialize(date: Date): any {
-                let year = date.getFullYear();
-                let month = date.getMonth() + 1;
-                let day = date.getDate();
+                let year = date.getUTCFullYear();
+                let month = date.getUTCMonth() + 1;
+                let day = date.getUTCDate();
                 return year + "-" + ( month < 10 ? "0" + month : month ) + "-" + ( day < 10 ? "0" + day : day );
             }
             deserialize(date: any): Date {
-                return new Date(date);
+                return new Date(date);  // yyyy-mm-dd format is assumed to be in UTC 
             }
         }
 

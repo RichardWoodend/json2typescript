@@ -499,7 +499,7 @@ export class JsonConvert {
 
         // Map the property
         try {
-            instance[classPropertyName] = customConverter !== null ? customConverter.deserialize(jsonValue) : this.verifyProperty(expectedJsonType, jsonValue);
+            instance[classPropertyName] = customConverter !== null ? customConverter.deserialize(jsonValue) : this.verifyProperty(expectedJsonType, jsonValue, false);
         } catch (e) {
             throw new Error(
                 "Fatal error in JsonConvert. " +
@@ -627,7 +627,7 @@ export class JsonConvert {
 
                 if (autofillType && i >= expectedJsonType.length) expectedJsonType[i] = expectedJsonType[i - 1];
 
-                array[i] = this.verifyProperty(expectedJsonType[i], value[i]);
+                array[i] = this.verifyProperty(expectedJsonType[i], value[i], serialize);
 
             }
 
@@ -657,7 +657,7 @@ export class JsonConvert {
 
                 if (autofillType && i >= expectedJsonType.length) expectedJsonType[i] = expectedJsonType[i - 1];
 
-                array[key] = this.verifyProperty(expectedJsonType[i], value[key]);
+                array[key] = this.verifyProperty(expectedJsonType[i], value[key], serialize);
 
                 i++;
             }
@@ -689,7 +689,7 @@ export class JsonConvert {
     ///////////////////////////
     // JSON2TYPESCRIPT TYPES //
     ///////////////////////////
-    
+
 
     /**
      * Returns a string representation of the expected json type.
